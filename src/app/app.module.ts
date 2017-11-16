@@ -11,6 +11,7 @@ import { WithDependencyComponent } from './with-dependency/with-dependency.compo
 import { WithServicePropertyComponent } from './with-service-property/with-service-property.component';
 import { WithInputOutputComponent } from './with-input-output/with-input-output.component';
 import { WithOverrideComponent } from './with-override/with-override.component';
+import { WithRouteComponent } from './with-route/with-route.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { WithOverrideComponent } from './with-override/with-override.component';
     WithDependencyComponent,
     WithServicePropertyComponent,
     WithInputOutputComponent,
-    WithOverrideComponent
+    WithOverrideComponent,
+    WithRouteComponent
   ],
   imports: [
     HttpModule,
