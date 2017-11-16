@@ -29,6 +29,9 @@ import { WithOverrideComponent } from './with-override/with-override.component';
       { path: 'inline', component: InlineComponent },
       { path: 'normal', component: InlineComponent },
       { path: 'with-dependency', component: WithDependencyComponent },
+      { path: 'with-input-output', component: WithInputOutputComponent },
+      { path: 'with-override', component: WithOverrideComponent },
+      { path: 'with-service-property', component: WithServicePropertyComponent },
     ])
   ],
   providers: [
