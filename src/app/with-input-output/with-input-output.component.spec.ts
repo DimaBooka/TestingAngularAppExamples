@@ -47,7 +47,7 @@ describe('WithInputOutputComponent', () => {
 });
 
 
-fdescribe('', () => {
+describe('WithInputOutputComponent test wrapping component for input-output', () => {
   let fixture: ComponentFixture<WithOverrideComponent>;
   let de: DebugElement;
   let el: HTMLElement;
