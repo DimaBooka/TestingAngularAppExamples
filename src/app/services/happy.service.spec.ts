@@ -1,12 +1,13 @@
 import { TestBed, inject, fakeAsync } from '@angular/core/testing';
 
 import { HappyService } from './happy.service';
-import { HttpModule, RequestMethod, ResponseOptions, XHRBackend, Response } from '@angular/http';
+import { HttpModule, RequestMethod, ResponseOptions, XHRBackend, Response, Http } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
+import { Observable } from 'rxjs/Observable';
 
 const mockResponse = 'Happy';
 
-fdescribe('Happy.ServiceService', () => {
+describe('Happy.ServiceService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpModule],
@@ -44,4 +45,53 @@ fdescribe('Happy.ServiceService', () => {
         });
     })
   ));
+});
+
+
+describe('Wikipedia search service', () => {
+  let mockHttp: Http;
+
+  beforeEach(() => {
+    mockHttp = { get: null } as Http;
+
+    spyOn(mockHttp, 'get').and.returnValue(Observable.of({
+      json: () => mockResponse
+    }));
+
+    TestBed.configureTestingModule({
+      imports: [HttpModule],
+      providers: [
+        {
+          provide: Http,
+          useValue: mockHttp
+        },
+        HappyService
+      ]
+    });
+  });
+
+  it('should get some happy', fakeAsync(
+    inject([HappyService], HappyService => {
+      const expectedUrl = '/assets/json/happy.json';
+
+      HappyService.getHappy()
+        .subscribe(res => {
+          expect(mockHttp.get).toHaveBeenCalledWith(expectedUrl);
+          expect(res).toEqual(mockResponse);
+        });
+    })
+  ));
+
+  it('should get some happy but test will be async',
+    fakeAsync(inject([HappyService], (HappyService) => {
+      return new Promise((pass, fail) => {
+
+        const expectedUrl = '/assets/json/happy.json';
+        HappyService.getHappy()
+          .subscribe(res => {
+            expect(mockHttp.get).toHaveBeenCalledWith(expectedUrl);
+            expect(res).toEqual(mockResponse);
+          });
+      });
+  })));
 });
